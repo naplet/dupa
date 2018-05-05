@@ -1,0 +1,5 @@
+project(lab6)
+
+add_subdirectory_if_exists(wordcounter)
+add_subdirectory_if_exists(academia)
+add_subdirectory_if_exists(zipper)
