@@ -13,11 +13,6 @@ namespace moviesubs{
 /////////////////////////////////////Dvd
     MicroDvdSubtitles::MicroDvdSubtitles() {}
 
-    bool checkFrames(vector <int> v){
-     
-    return false;
-    }
-
     void MicroDvdSubtitles::ShiftAllSubtitlesBy(int mTime, int fps, stringstream *in, stringstream *out) {
     int diference = (mTime * fps) / 1000;
     if (fps < 0){
