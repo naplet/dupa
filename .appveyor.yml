@@ -31,4 +31,12 @@ build_script:
   - dir tests
   - dir tests\exampletest
   - tests\exampletest\example_examplelibrary_tests.exe
+  - dir tests\lab8test
+  - tests\lab8test\MicroDvdCorrectCasesTest.exe
+  - tests\lab8test\MicroDvdErrorCasesTest.exe
+  - tests\lab8test\MovieSubtitlesTest.exe
+  - tests\lab8test\SubRipCorrectCasesTest.exe
+  - tests\lab8test\SubRipErrorCasesTest.exe
+  
+  
 
