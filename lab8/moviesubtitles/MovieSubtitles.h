@@ -35,8 +35,8 @@ class SubtitleException : public std::invalid_argument{
         SubtitleException(const std::string &line_content, int line_number);
         int LineAt() const;
         const char* what () const noexcept override;
-        std::string message_;
-        int line_number_;
+        /*std::string message_;
+        int line_number_;*/
     };
 
     class NegativeFrameAfterShift:public SubtitleException{
