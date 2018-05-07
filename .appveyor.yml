@@ -28,15 +28,12 @@ before_build:
 
 build_script:
   - mingw32-make example_examplelibrary_tests
+  - mingw32-make lab8_micro_dvd_error_cases_tests
+  - mingw32-make lab8_movie_subtitles_tests
+  - mingw32-make lab8_sub_rip_correct_cases_tests
+  - mingw32-make lab8_sub_rip_error_cases_tests
   - dir tests
   - dir tests\exampletest
   - tests\exampletest\example_examplelibrary_tests.exe
-  - dir tests\lab8test
-  - tests\lab8test\MicroDvdCorrectCasesTest.exe
-  - tests\lab8test\MicroDvdErrorCasesTest.exe
-  - tests\lab8test\MovieSubtitlesTest.exe
-  - tests\lab8test\SubRipCorrectCasesTest.exe
-  - tests\lab8test\SubRipErrorCasesTest.exe
-  
   
 
