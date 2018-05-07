@@ -14,16 +14,7 @@ namespace moviesubs{
     MicroDvdSubtitles::MicroDvdSubtitles() {}
 
     bool checkFrames(vector <int> v){
-        int i = 1;
-    for (int j = 0; j < v.size() - 1; ++j) {
-        if(j % 2 == 0) {
-            if (v[j + 1] < v[j]) {
-                int a = v[j + 1];
-                int b = v[j];
-                return true;
-            }
-        }
-    }
+     
     return false;
     }
 
