@@ -13,7 +13,7 @@ namespace moviesubs {
     void MicroDvdSubtitles::ShiftAllSubtitlesBy(int offset_in_micro_seconds, int frame_per_second, std::istream *in, std::ostream *out) {
     
         if(frame_per_second < 0) throw std::invalid_argument("Negative fps");
-        int Fps = (offset_in_micro_seconds*frame_per_second)/1000;
+        int Fps = ((offset_in_micro_seconds*frame_per_second)/1000);
         regex pattern {R"(\{(\d+)\}\{(\d+)\}(.+))"};
         int LineIndex = 1;
         int start = -1;
