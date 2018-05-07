@@ -1,14 +1,5 @@
-
-//
-// Created by bobo on 29.04.18.
-//
-
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <cstring>
 #include "MovieSubtitles.h"
-namespace moviesubs{
+
 void moviesubs::MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int framerate,
                                                         std::stringstream* in, std::stringstream* out) {
 
@@ -18,23 +9,23 @@ void moviesubs::MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int framerate,
 
     int shift_by=(delay*framerate)/1000;
 
-    std::regex subtitles_regex(R"(\{(-?\d+)\}\{(-?\d+)\}(.+))");
+    std::regex sub_line_regex(R"(\{(-?\d+)\}\{(-?\d+)\}(.+))");
     int line_index=1;
 
     char line_buffer[1000];
 
     while(in->getline(line_buffer, 1000)) {
-        std::cmatch line;
-        if (std::regex_match(line_buffer, sub_line, subtitles_regex)){
-            int start_frame = std::stoi(line[1])+shift_by;
-            int end_frame = std::stoi(line[2])+shift_by;
+        std::cmatch sub_line;
+        if (std::regex_match(line_buffer, sub_line, sub_line_regex)){
+            int start_frame = std::stoi(sub_line[1])+shift_by;
+            int end_frame = std::stoi(sub_line[2])+shift_by;
             if (start_frame>end_frame){
-                throw(SubtitleEndBeforeStart(line[0], line_index));
+                throw(SubtitleEndBeforeStart(sub_line[0], line_index));
             }
             if (start_frame < 0){
-                throw(NegativeFrameAfterShift(line[0], line_index));
+                throw(NegativeFrameAfterShift(sub_line[0], line_index));
             }
-            (*out)<<"{"<<start_frame<<"}{"<<end_frame<<"}"<<line[3]<<"\n";
+            (*out)<<"{"<<start_frame<<"}{"<<end_frame<<"}"<<sub_line[3]<<"\n";
         } else{
             throw(InvalidSubtitleLineFormat(std::string(line_buffer), line_index));
         }
