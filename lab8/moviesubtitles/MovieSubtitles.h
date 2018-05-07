@@ -11,7 +11,7 @@ using namespace std;
 namespace moviesubs{
 class MovieSubtitles{
 public:
-    virtual void ShiftAllSubtitlesBy (int mTime, int fps, stringstream *in, stringstream *out) = 0;
+    virtual void ShiftAllSubtitlesBy (int offset_in_micro_seconds, int frame_per_second, stringstream *in, stringstream *out) = 0;
     ~MovieSubtitles() = default;
 
 };
@@ -19,7 +19,7 @@ public:
 class MicroDvdSubtitles : public MovieSubtitles{
 public:
     MicroDvdSubtitles();
-    void ShiftAllSubtitlesBy (int mTime, int fps, stringstream *in, stringstream *out) override ;
+    void ShiftAllSubtitlesBy (int offset_in_micro_seconds, int frame_per_second, stringstream *in, stringstream *out) override ;
 
 
 };
@@ -27,7 +27,7 @@ public:
 class SubRipSubtitles : public MovieSubtitles{
 public:
     SubRipSubtitles();
-    void ShiftAllSubtitlesBy (int mTime, int fps, stringstream *in, stringstream *out) override ;
+    void ShiftAllSubtitlesBy (int offset_in_micro_seconds, int frame_per_second, stringstream *in, stringstream *out) override ;
 };
 
 class SubtitleException : public std::invalid_argument{
