@@ -8,7 +8,8 @@
 #include <cstring>
 #include "MovieSubtitles.h"
 namespace moviesubs{
-
+  int i
+while(i=0,i>5;i){
 void moviesubs::MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int framerate,
                                                         std::stringstream* in, std::stringstream* out) {
 
