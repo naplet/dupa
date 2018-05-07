@@ -26,50 +26,40 @@ public:
     void ShiftAllSubtitlesBy (int mTime, int fps, stringstream *in, stringstream *out) override ;
 };
 
-//////////////////////////////Excpetions////////////////////////////////////////
-//////////MicroDvd/////////////////
-    class NegativeFrameAfterShift : public invalid_argument {
+ class SubtitlesException : public std::invalid_argument {
     public:
+        SubtitlesException(size_t lineNumber, const std::string &line);
 
-        NegativeFrameAfterShift();
+        size_t LineAt() const;
 
-        ~NegativeFrameAfterShift() = default;
-    };
-   /* class SubtitleEndBeforeStart : public exception{
     private:
-        int line_;
-        string message_;
-    public:
-        int LineAt() const;
-        const char* what() const throw() override ;
-        SubtitleEndBeforeStart();
-        SubtitleEndBeforeStart(int line, string message);
-        ~SubtitleEndBeforeStart() = default;
-    };*/
-    class SubtitleEndBeforeStart {
-    private:
-        int line_;
-        string message_;
-    public:
-        int LineAt() const;
-        string what() const;
-        SubtitleEndBeforeStart();
-        SubtitleEndBeforeStart(int line, string message);
-        ~SubtitleEndBeforeStart() = default;
+        size_t m_line_number;
+        std::string msg;
     };
-    class InvalidSubtitleLineFormat {
+
+    class NegativeFrameAfterShift : public SubtitlesException {
     public:
-        InvalidSubtitleLineFormat();
-        InvalidSubtitleLineFormat(int a);
-        ~InvalidSubtitleLineFormat() = default;
+        NegativeFrameAfterShift(size_t lineNumber, const std::string &line);
     };
-    class OutOfOrderFrames {
+
+    class SubtitleEndBeforeStart : public SubtitlesException {
     public:
-        OutOfOrderFrames();
-        ~OutOfOrderFrames() = default;
+        SubtitleEndBeforeStart(size_t lineNumber, const std::string &line);
     };
-    class MissingTimeSpecification{};
+
+    class InvalidSubtitleLineFormat : public SubtitlesException {
+    public:
+        InvalidSubtitleLineFormat(size_t lineNumber, const std::string &line);
+    };
+
+    class OutOfOrderFrames : public SubtitlesException {
+    public:
+        OutOfOrderFrames(size_t lineNumber, const std::string &line);
+    };
+
+    class MissingTimeSpecification : public SubtitlesException {
+    public:
+        MissingTimeSpecification(size_t lineNumber, const std::string &line);
+
+    };
 }
-
-
-#endif //JIMP_EXERCISES_MOVIESUBTITLES_H
