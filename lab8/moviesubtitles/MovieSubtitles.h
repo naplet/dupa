@@ -1,42 +1,40 @@
-//
-// Created by bobo on 29.04.18.
-//
-
 #ifndef JIMP_EXERCISES_MOVIESUBTITLES_H
 #define JIMP_EXERCISES_MOVIESUBTITLES_H
 
+#include <regex>
 #include <string>
+#include <stdexcept>
+#include <iostream>
 
-using namespace std;
-namespace moviesubs{
-class MovieSubtitles{
-public:
-    virtual void ShiftAllSubtitlesBy (int offset_in_micro_seconds, int frame_per_second, stringstream *in, stringstream *out) = 0;
-    ~MovieSubtitles() = default;
+namespace moviesubs {
 
-};
+    class MovieSubtitles{
+    public:
+        virtual void ShiftAllSubtitlesBy(int delay, int framerate,
+                                 std::stringstream* in, std::stringstream* out) =0;
+    };
 
-class MicroDvdSubtitles : public MovieSubtitles{
-public:
-    MicroDvdSubtitles();
-    void ShiftAllSubtitlesBy (int offset_in_micro_seconds, int frame_per_second, stringstream *in, stringstream *out) override ;
+    class MicroDvdSubtitles:public MovieSubtitles{
+    public:
+        void ShiftAllSubtitlesBy(int delay, int framerate,
+                                 std::stringstream* in, std::stringstream* out) override ;
+    };
+
+    class SubRipSubtitles :public MovieSubtitles{
+        void ShiftAllSubtitlesBy(int delay, int framerate,
+                                 std::stringstream* in, std::stringstream* out) override ;
+    };
 
 
-};
+    //Errors
 
-class SubRipSubtitles : public MovieSubtitles{
-public:
-    SubRipSubtitles();
-    void ShiftAllSubtitlesBy (int offset_in_micro_seconds, int frame_per_second, stringstream *in, stringstream *out) override ;
-};
-
-class SubtitleException : public std::invalid_argument{
+    class SubtitleException : public std::invalid_argument{
     public:
         SubtitleException(const std::string &line_content, int line_number);
         int LineAt() const;
         const char* what () const noexcept override;
-        /*std::string message_;
-        int line_number_;*/
+        std::string message_;
+        int line_number_;
     };
 
     class NegativeFrameAfterShift:public SubtitleException{
@@ -61,4 +59,4 @@ class SubtitleException : public std::invalid_argument{
     };
 }
 
-#endif
+#endif //JIMP_EXERCISES_MOVIESUBTITLES_H
